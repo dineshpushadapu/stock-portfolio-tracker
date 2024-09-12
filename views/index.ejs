@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stock Portfolio</title>
+    <link rel="stylesheet" href="\styles.css">
+    
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <a href="/">Home</a>
+        <a href="/login" class="right">Login</a>
+        <a href="/signup" class="right">Signup</a>
+        <a href="/logout" class="right">Logout</a>
+    </div>
+
+    <h1>Stock Portfolios</h1>
+    
+    <!-- Form to Add New Portfolio -->
+    <h2>Add New Portfolio</h2>
+    <form action="/portfolios" method="POST">
+        <label for="name">Portfolio Name:</label>
+        <input type="text" id="name" name="name" required>
+        
+        <h3>Stocks</h3>
+        <label for="symbol">Stock Symbol:</label>
+        <input type="text" id="symbol" name="symbol" required>
+        
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" step="any" required>
+        
+        <label for="purchasePrice">Purchase Price:</label>
+        <input type="number" id="purchasePrice" name="purchasePrice" step="any" required>
+        
+        <label for="currentPrice">Current Price:</label>
+        <input type="number" id="currentPrice" name="currentPrice" step="any" required>
+        
+        <button type="submit">Add Portfolio</button>
+    </form>
+    
+    <!-- Display Existing Portfolios -->
+    <h2>Existing Portfolios</h2>
+    <ul>
+        <% portfolios.forEach(portfolio => { %>
+            <% 
+            let totalPurchaseValue = 0;
+            let totalCurrentValue = 0;
+            portfolio.stocks.forEach(stock => { 
+                const purchaseValue = stock.quantity * stock.purchasePrice;
+                const currentValue = stock.quantity * stock.currentPrice;
+                totalPurchaseValue += purchaseValue;
+                totalCurrentValue += currentValue;
+            });
+            const profitOrLoss = totalCurrentValue - totalPurchaseValue;
+            const percentageChange = totalPurchaseValue > 0 ? (profitOrLoss / totalPurchaseValue) * 100 : 0;
+            const statusClass = profitOrLoss >= 0 ? 'profit' : 'loss';
+            %>
+            <li class="portfolio <%= statusClass %>">
+                <div class="portfolio-header">
+                    <h3><%= portfolio.name %></h3>
+                    <div class="actions">
+                        <!-- Edit Button -->
+                        <form action="/portfolios/<%= portfolio._id %>/edit" method="GET" class="submit-but" style="display:inline;">
+                            <button type="submit">Edit</button>
+                        </form>
+                    
+                        <!-- Delete Button -->
+                        <form action="/portfolios/<%= portfolio._id %>/delete" method="POST" class="submit-but" style="display:inline;">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </div>
+                    
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Stock Symbol</th>
+                            <th>Quantity</th>
+                            <th>Purchase Price</th>
+                            <th>Current Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% portfolio.stocks.forEach(stock => { %>
+                            <tr>
+                                <td><%= stock.symbol %></td>
+                                <td><%= stock.quantity %></td>
+                                <td><%= stock.purchasePrice %></td>
+                                <td><%= stock.currentPrice %></td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+                <p>
+                    Total Purchase Value: <%= totalPurchaseValue.toFixed(2) %><br>
+                    Total Current Value: <%= totalCurrentValue.toFixed(2) %><br>
+                    Status: <%= profitOrLoss >= 0 ? 'In Profit' : 'In Loss' %> (<%= profitOrLoss.toFixed(2) %>, <%= percentageChange.toFixed(2) %>%)
+                </p>
+            </li>
+        <% }) %>
+    </ul>
+</body>
+</html>

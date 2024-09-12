@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Edit Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background-image: url('/assets/background1.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background-color: rgba(256, 256, 256, 0.4);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        h3,
+        h4 {
+            margin-bottom: 10px;
+            color: #007BFF;
+        }
+
+        button {
+            width: 100%;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #007BFF;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        a:hover {
+            background-color: #1463b8;
+        }
+
+        .stock-item {
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+
+        .stock-item:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Edit Portfolio</h1>
+
+        <form action="/portfolios/<%= portfolio._id %>" method="POST">
+            <label for="name">Portfolio Name:</label>
+            <input type="text" id="name" name="name" value="<%= portfolio.name %>" required>
+
+            <h3 style="color:black">Stocks</h3>
+            <% portfolio.stocks.forEach((stock, index)=> { %>
+                <div class="stock-item">
+                    <h4 style="color:black">Stock <%= index + 1 %>
+                    </h4>
+                    <label for="symbol">Stock Symbol:</label>
+                    <input type="text" id="symbol" name="symbol" value="<%= stock.symbol %>" required>
+
+                    <label for="quantity">Quantity:</label>
+                    <input type="number" id="quantity" name="quantity" value="<%= stock.quantity %>" step="any"
+                        required>
+
+                    <label for="purchasePrice">Purchase Price:</label>
+                    <input type="number" id="purchasePrice" name="purchasePrice" value="<%= stock.purchasePrice %>"
+                        step="any" required>
+
+                    <label for="currentPrice">Current Price:</label>
+                    <input type="number" id="currentPrice" name="currentPrice" value="<%= stock.currentPrice %>"
+                        step="any" required>
+                </div>
+                <% }) %>
+
+                    <button type="submit">Update Portfolio</button>
+        </form>
+
+        <a href="/" style="width: 100%;
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        padding: 12px;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;">Back to Portfolios</a>
+    </div>
+</body>
+
+</html>
