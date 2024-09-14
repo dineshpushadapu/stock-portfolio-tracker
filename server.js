@@ -8,12 +8,11 @@ const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 
-// Set the PORT (from environment variable or default to 3000)
 const PORT = process.env.PORT || 3000;
 
 // Connect to MongoDB
 mongoose.connect('mongodb://localhost/stock_portfolio', {
-    // No need for useNewUrlParser and useUnifiedTopology options
+
 });
 
 // MongoDB connection events

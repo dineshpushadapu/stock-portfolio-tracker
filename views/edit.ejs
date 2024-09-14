@@ -18,18 +18,22 @@
             min-height: 100vh;
         }
 
+        .bg-image {
+            filter: blur(8px);
+            -webkit-filter: blur(8px);
+        }
         .container {
             max-width: 600px;
             width: 100%;
             background-color: rgba(256, 256, 256, 0.4);
-            padding: 20px;
+            padding: 55px;
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
             text-align: center;
-            color: #333;
+            color: #ffffff;
             margin-bottom: 20px;
         }
 
@@ -38,7 +42,7 @@
             display: block;
             margin-top: 15px;
             margin-bottom: 5px;
-            color: #333;
+            color: #ffffff;
         }
 
         input[type="text"],
@@ -106,10 +110,10 @@
             <label for="name">Portfolio Name:</label>
             <input type="text" id="name" name="name" value="<%= portfolio.name %>" required>
 
-            <h3 style="color:black">Stocks</h3>
+            <h3 style="color:#ffffff">Stocks</h3>
             <% portfolio.stocks.forEach((stock, index)=> { %>
                 <div class="stock-item">
-                    <h4 style="color:black">Stock <%= index + 1 %>
+                    <h4 style="color:#ffffff">Stock <%= index + 1 %>
                     </h4>
                     <label for="symbol">Stock Symbol:</label>
                     <input type="text" id="symbol" name="symbol" value="<%= stock.symbol %>" required>

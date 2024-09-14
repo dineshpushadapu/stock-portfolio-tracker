@@ -35,14 +35,14 @@ body {
 /* Headings */
 h1, h2, h3 {
     text-align: center;
-    color: #333;
+    color: #ffffff;
 }
 
 /* Form styles */
 form {
     max-width: 600px;
     margin: 20px auto;
-    padding: 20px;
+    padding: 50px;
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: #ffffff;
